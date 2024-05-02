@@ -1,8 +1,11 @@
 import 'package:counter_bloc/widgets/action_btns.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,31 +14,29 @@ class HomeView extends StatelessWidget {
         title: const Text("Flutter Bloc"),
         centerTitle: true,
       ),
-      //  todo
-      floatingActionButton: const ActionButtons(),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'counter value is :  ',
-              style: TextStyle(
-                fontSize: 18,
-              ),
+          children: <Widget>[
+            const Text(
+              'Counter Value is :',
+              style: TextStyle(fontSize: 18),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
-              '0',
-              style: TextStyle(
-                color: Colors.purple,
-                fontSize: 30,
-              ),
+            BlocBuilder<CounterBloc, CounterState>(
+              builder: (_, state) {
+                return Text(
+                  "${state.counter}",
+                  style: const TextStyle(color: Colors.blueGrey, fontSize: 30),
+                );
+              },
             ),
           ],
         ),
       ),
+      floatingActionButton: const ButtonsWidget(),
     );
   }
 }
